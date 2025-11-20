@@ -1,0 +1,89 @@
+{% extends "layout.html" %}
+
+{% block content %}
+    <h1>📊 Analytics Reports</h1>
+    <p><em>Demonstrating complex SQL aggregations, subqueries, joins, and window functions.</em></p>
+
+    <div class="dashboard">
+        
+        <!-- Card 1: Aggregation -->
+        <div class="artist-card">
+            <h3>Longest Albums (Minutes)</h3>
+            <table>
+                {% for row in longest_albums %}
+                <tr>
+                    <td>{{ row.Title }}</td>
+                    <td>{{ "%.2f"|format(row.TotalMinutes) }} min</td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+
+        <!-- Card 2: Complex Join -->
+        <div class="artist-card">
+            <h3>Genre & Format Stats</h3>
+            <table>
+                {% for row in genre_stats %}
+                <tr>
+                    <td>{{ row.Genre }} ({{ row.Format }})</td>
+                    <td>{{ row.Count }} tracks</td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+
+        <!-- Card 3: Subquery -->
+        <div class="artist-card">
+            <h3>Epic Songs (> Avg Length)</h3>
+            <table>
+                {% for row in long_songs %}
+                <tr>
+                    <td>{{ row.Name }}</td>
+                    <td>{{ "%.0f"|format(row.Seconds) }} sec</td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+
+         <!-- Card 4: Many-to-Many Join -->
+         <div class="artist-card">
+            <h3>Most Playlisted Tracks</h3>
+            <table>
+                {% for row in playlist_stats %}
+                <tr>
+                    <td>{{ row.Name }}</td>
+                    <td>{{ row.PlaylistCount }} playlists</td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+
+        <!-- Card 5: Window Function -->
+        <div class="artist-card">
+            <h3>Track Rankings (Window Func)</h3>
+            <table>
+                <tr><th>Track</th><th>Album</th><th>Rank</th></tr>
+                {% for row in track_rankings %}
+                <tr>
+                    <td>{{ row.Name }}</td>
+                    <td>{{ row.Album }}</td>
+                    <td>#{{ row.RankInAlbum }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+
+        <!-- Card 6: Outer Join -->
+        <div class="artist-card">
+            <h3>Artists w/ No Albums (Left Join)</h3>
+            <ul>
+                {% for row in orphan_artists %}
+                <li>{{ row.Name }}</li>
+                {% else %}
+                <li><em>All artists have albums!</em></li>
+                {% endfor %}
+            </ul>
+        </div>
+
+    </div>
+{% endblock %}

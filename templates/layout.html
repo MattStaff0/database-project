@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chinook Music App</title>
+    <!-- Link to the static CSS file -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='global.css') }}">
+</head>
+<body>
+    
+    <!-- Navigation Bar -->
+    <nav>
+        <div class="container" style="padding: 0;">
+            <a href="/">🏠 Dashboard</a>
+            <a href="/search">🔍 Search</a>
+            <a href="/add">➕ Add Single (Transaction)</a>
+            <a href="/reports">📊 Reports</a>
+            <a href="/logs">📜 Logs</a> <!-- NEW LINK -->
+        </div>
+    </nav>
+
+    <div class="container">
+        <!-- Child page content goes here -->
+        {% block content %}{% endblock %}
+    </div>
+
+</body>
+</html>

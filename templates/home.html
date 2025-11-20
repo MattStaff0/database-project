@@ -1,0 +1,51 @@
+{% extends "layout.html" %}
+
+{% block content %}
+    <h1>Dashboard</h1>
+    
+    <div class="dashboard">
+        
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <h2>Top 5 Artists</h2>
+            <p><em>Generated via Stored Procedure</em></p>
+            
+            {% for artist in top_artists %}
+            <div class="artist-card">
+                <strong>{{ artist.ArtistName }}</strong><br>
+                {{ artist.TrackCount }} Tracks
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <h2>Recently Added Tracks</h2>
+            <p><em>Generated via SQL View</em></p>
+            
+            <table>
+                <thead>
+                    <tr>
+                        <th>Song</th>
+                        <th>Artist</th>
+                        <th>Album</th>
+                        <th>Genre</th>
+                        <th>Price</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for track in tracks %}
+                    <tr>
+                        <td>{{ track.TrackName }}</td>
+                        <td>{{ track.ArtistName }}</td>
+                        <td>{{ track.AlbumTitle }}</td>
+                        <td>{{ track.GenreName }}</td>
+                        <td>${{ track.UnitPrice }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        
+    </div>
+{% endblock %}

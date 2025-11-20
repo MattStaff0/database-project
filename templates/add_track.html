@@ -1,0 +1,51 @@
+{% extends "layout.html" %}
+
+{% block content %}
+    <h1>Add New Track</h1>
+    <p><em>Transaction Demo: Adds a Track AND automatically links it to the 'Music' Playlist (ID: 1). If either step fails, both are rolled back.</em></p>
+
+    <!-- NEW: Simple Message Display (No Flash) -->
+    {% if message %}
+        <div style="padding: 15px; margin-bottom: 20px; border-radius: 5px; color: white; background-color: {{ 'green' if message_type == 'success' else 'red' }};">
+            {{ message }}
+        </div>
+    {% endif %}
+
+    <form action="/add" method="POST" style="max-width: 500px;">
+        
+        <div class="form-group">
+            <label>Select Album:</label>
+            <select name="album_id" required class="searchable-select">
+                {% for album in albums %}
+                    <option value="{{ album.AlbumId }}">{{ album.Title }} (by {{ album.ArtistName }})</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Track Name:</label>
+            <input type="text" name="name" required placeholder="e.g. Enter Sandman">
+        </div>
+
+        <div class="form-group">
+            <label>Composer:</label>
+            <input type="text" name="composer" placeholder="e.g. Hetfield, Ulrich">
+        </div>
+
+        <div class="form-group">
+            <label>Price (CHECK Constraint > 0):</label>
+            <input type="number" name="price" step="0.01" required placeholder="0.99">
+        </div>
+
+        <div class="form-group">
+            <label>Media Type:</label>
+            <select name="media_type_id">
+                <option value="1">MPEG Audio File</option>
+                <option value="2">Protected AAC</option>
+                <option value="3">Protected MPEG-4 Video File</option>
+            </select>
+        </div>
+
+        <button type="submit">Add Track & Update Playlist</button>
+    </form>
+{% endblock %}

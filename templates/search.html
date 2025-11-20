@@ -1,0 +1,41 @@
+{% extends "layout.html" %}
+
+{% block content %}
+    <h1>Search Library</h1>
+
+    <!-- Search Form -->
+    <form action="/search" method="GET" style="margin-bottom: 30px;">
+        <div class="form-group">
+            <input type="text" name="q" placeholder="Search for songs, artists, or albums..." value="{{ request.args.get('q', '') }}">
+        </div>
+        <button type="submit">Search</button>
+    </form>
+
+    <!-- Results Table -->
+    {% if results %}
+        <h2>Results</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Song</th>
+                    <th>Artist</th>
+                    <th>Album</th>
+                    <th>Price</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in results %}
+                <tr>
+                    <td>{{ row.SongName }}</td>
+                    <td>{{ row.ArtistName }}</td>
+                    <td>{{ row.AlbumTitle }}</td>
+                    <td>{{ row.UnitPrice }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% elif request.args.get('q') %}
+        <p>No results found.</p>
+    {% endif %}
+
+{% endblock %}
