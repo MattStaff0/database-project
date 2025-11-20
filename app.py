@@ -1,5 +1,5 @@
 # backend for the database project
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request 
 import mysql.connector
 from mysql.connector import Error
 
